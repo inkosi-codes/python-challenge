@@ -5,7 +5,6 @@ working_dir = _dir.getcwd()
 csv_file = "budget_data.csv"
 
 def show_results(x, t, a, inc_date, inc, dec_date, dec):
-    print()
     print("Financial Analysis")
     print("---------------------------------")    
     print(f'Total Months: {x}')
@@ -26,7 +25,6 @@ def process_csv(csv):
     inc_date = rdr.loc[rdr["Profit/Losses"] == inc, "Date"].values
     dec = val.min()
     dec_date = rdr.loc[rdr["Profit/Losses"] == dec, "Date"].values
-    print(rdr.iloc[-1]["Profit/Losses"])
     show_results(x, t, a, inc_date, inc, dec_date, dec)
 
 
