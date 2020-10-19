@@ -1,13 +1,26 @@
 import os as _dir
 import pandas
+import sys
+import io
 
-working_dir = _dir.getcwd() 
+working_dir = _dir.getcwd()
 csv_file = "election_data.csv"
 
+
+def output_file(p):
+    results = open("results.txt", "w")
+    results.write(p)
+    results.close()
+
+
 def show_results(x, k, kp, c, cp, l, lp, o, op, w):
+    sys_output = sys.stdout
+    io_string = io.StringIO()
+    sys.stdout = io_string
+
     print("Election Results")
-    print("---------------------------------")    
-    print(f'Total Votes: {x}')
+    print("---------------------------------")
+    print(f"Total Votes: {x}")
     print("---------------------------------")
     print(f'Khan: {"{:.2%}".format(kp)} ({k})')
     print(f'Correy: {"{:.2%}".format(cp)} ({c})')
@@ -16,6 +29,12 @@ def show_results(x, k, kp, c, cp, l, lp, o, op, w):
     print("--------------------------------")
     print(f"Winner: {w}")
     print("-------------------------------")
+    p = io_string.getvalue()
+    sys.stdout = sys_output
+
+    print(p)
+    output_file(p)
+
 
 def process_csv(csv):
     rdr = pandas.read_csv(csv)
@@ -30,7 +49,7 @@ def process_csv(csv):
     lp = l / x
     o = len(rdr.loc[rdr["Candidate"] == "O'Tooley", "Voter ID"].values)
     op = o / x
-    ws = {"Khan":k, "Correy":c, "Li":l, "O'Tooley":o}
+    ws = {"Khan": k, "Correy": c, "Li": l, "O'Tooley": o}
     w = max(ws, key=ws.get)
     show_results(x, k, kp, c, cp, l, lp, o, op, w)
 
@@ -38,9 +57,8 @@ def process_csv(csv):
 def getCsvFile():
     for root, dirs, files in _dir.walk(working_dir):
         if csv_file in files:
-            p = (_dir.path.join(root, csv_file))
+            p = _dir.path.join(root, csv_file)
     process_csv(p)
-    
 
 
 getCsvFile()
