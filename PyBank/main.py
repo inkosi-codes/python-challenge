@@ -27,8 +27,6 @@ def process_csv(csv):
     dec_date = rdr.loc[rdr["Profit/Losses"] == dec, "Date"].values
     show_results(x, t, a, inc_date, inc, dec_date, dec)
 
-
-
 def getCsvFile():
     for root, dirs, files in _dir.walk(working_dir):
         if csv_file in files:
