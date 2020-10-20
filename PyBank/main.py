@@ -1,10 +1,21 @@
 import os as _dir
 import pandas
+import sys
+import io
 
 working_dir = _dir.getcwd() 
 csv_file = "budget_data.csv"
 
+def output_file(p):
+    results = open("results.txt", "w")
+    results.write(p)
+    results.close()
+
 def show_results(x, t, a, inc_date, inc, dec_date, dec):
+    sys_output = sys.stdout
+    io_string = io.StringIO()
+    sys.stdout = io_string
+
     print("Financial Analysis")
     print("---------------------------------")    
     print(f'Total Months: {x}')
@@ -12,6 +23,11 @@ def show_results(x, t, a, inc_date, inc, dec_date, dec):
     print(f'Average Change: ${a}')
     print(f'Greatest Increase in Profits:{inc_date} (${inc})')
     print(f'Greatest Increase in Profits:{dec_date} (${dec})')
+    p = io_string.getvalue()   
+    sys.stdout = sys_output
+
+    print(p)
+    output_file(p)
 
 def process_csv(csv):
     rdr = pandas.read_csv(csv)
@@ -33,6 +49,5 @@ def getCsvFile():
             p = (_dir.path.join(root, csv_file))
     process_csv(p)
     
-
 
 getCsvFile()
