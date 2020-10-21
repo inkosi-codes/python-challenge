@@ -52,9 +52,10 @@ def show_results(x, t, a, inc_date, inc, dec_date, dec):
 #----------------------------------------------------------------------
 def process_csv(csv):
     rdr = pandas.read_csv(csv)
-    x = rdr["Date"].count()
     head = rdr["Profit/Losses"].head()[0]
     tail = rdr["Profit/Losses"].tail()[85]
+
+    x = rdr["Date"].count()
     val = rdr["Profit/Losses"].values
     t = val.sum() # Sum of profits and losses during the financial time period
     a = round((tail - head) / x, 2)
@@ -62,6 +63,7 @@ def process_csv(csv):
     inc_date = rdr.loc[rdr["Profit/Losses"] == inc, "Date"].values[0] # Uses the (inc) variable to match column "Profit/Losses" to the corresponding "Date" field 
     dec = val.min()
     dec_date = rdr.loc[rdr["Profit/Losses"] == dec, "Date"].values[0] # Uses the (dec) variable to match column "Profit/Losses" to the corresponding "Date" field 
+    
     show_results(x, t, a, inc_date, inc, dec_date, dec) # Passes all populated variables to func (show_results)
 
 #----------------------------------------------------------------------
