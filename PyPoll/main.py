@@ -14,15 +14,25 @@ working_dir = _dir.getcwd()# Used to get working directory of the main.py script
 csv_file = "election_data.csv"# File to be used for analysis of polling data
 
 #---------------------------------------------
-#
+# Takes in variable (p) from the (show_results) function and builds a path using
+# the current working directory and creates a text file in the Analysis folder of that
+# root directory.
 #---------------------------------------------
 def output_file(p):
-    results = open("results.txt", "w")
+    Analysis = "Analysis\\results.txt"
+    result_path = _dir.path.join(working_dir, Analysis)
+    results = open(result_path, "w")
     results.write(p)
     results.close()
 
 #---------------------------------------------
-#
+# The (show_results) function takes in all variables from (process_csv) function
+# in order to build out Analysis print out. Below shows all the variables and what the represent. 
+# Variables: 
+# (x) = Total Votes | (k) = Number of votes for Khan | (kp) = Percentage of votes for Khan
+# (c) = Number of votes for Correy | (cp) = Percentage of votes for Correy
+# (l) =  Number of votes for Li | (lp) = Percentage of votes for Li
+# (o) = Number of votes for O'Tooley | (op) = Percentage of votes for O'Tooley | (w) = Represents the election Winner
 #---------------------------------------------
 def show_results(x, k, kp, c, cp, l, lp, o, op, w):
     sys_output = sys.stdout
