@@ -64,6 +64,7 @@ def show_results(x, k, kp, c, cp, l, lp, o, op, w):
 #----------------------------------------------------------------------
 def process_csv(csv):
     rdr = pandas.read_csv(csv)
+    csv_header = rdr.columns.values
     x = rdr["Voter ID"].count()
     k = len(rdr.loc[rdr["Candidate"] == "Khan", "Voter ID"].values)
     kp = k / x

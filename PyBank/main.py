@@ -63,6 +63,7 @@ def show_results(x, t, a, inc_date, inc, dec_date, dec):
 #----------------------------------------------------------------------
 def process_csv(csv):
     rdr = pandas.read_csv(csv)
+    csv_header = rdr.columns.values # Stores Header
     head = rdr["Profit/Losses"].head()[0]
     tail = rdr["Profit/Losses"].tail()[85]
 
