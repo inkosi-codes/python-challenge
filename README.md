@@ -17,7 +17,7 @@ _Analyzing bank and polling data using Python_
 * The greatest decrease in losses (date and amount) over the entire period
 
 ### PyPoll
-**Your task is to create a Python script that analyzes the votes and calculates each of the following:**
+**Create a Python script that analyzes the votes and calculates each of the following:**
 
 * The total number of votes cast
 
