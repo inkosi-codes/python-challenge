@@ -16,17 +16,28 @@ working_dir = _dir.getcwd() # Used to get working directory of the main.py scrip
 csv_file = "budget_data.csv" # File to be used for analysis of financial data
 
 #---------------------------------------------
-#
+# Takes in variable (p) from the (show_results) function and builds a path using
+# the current working directory and creates a text file in the Analysis folder of that
+# root directory.
 #---------------------------------------------
 def output_file(p):
-    results = open("results.txt", "w")
+    Analysis = "Analysis\\results.txt"
+    result_path = _dir.path.join(working_dir, Analysis)
+    results = open(result_path, "w")
     results.write(p)
     results.close()
 
-#---------------------------------------------
-#
-#---------------------------------------------
+#--------------------------------------------------------------------------------------------------
+# The (show_results) function takes in all variables from (process_csv) function
+# in order to build out Analysis print out. Below shows all the variables and what the represent. 
+# Variables: 
+# (x) = Total Months | (t) = Sum of Profit/Losses column
+# (a) = Result of Average Change | (inc),(inc_date) = Represents Greatest increase number and corresponding Date
+# (dec),(dec_date) =  Represents Greatest decrease number and corresponding Date
+#---------------------------------------------------------------------------------------------------
 def show_results(x, t, a, inc_date, inc, dec_date, dec):
+# This portion of the code uses sys.stdout and io.StringIO in order to store all prints in-memory then uses
+# the (p) variable to spit out to terminal while passing to the output function.
     sys_output = sys.stdout
     io_string = io.StringIO()
     sys.stdout = io_string
@@ -41,8 +52,8 @@ def show_results(x, t, a, inc_date, inc, dec_date, dec):
     p = io_string.getvalue()   
     sys.stdout = sys_output
 
-    print(p)
-    output_file(p)
+    print(p)# Prints out results to terminal
+    output_file(p)# Passes the (p) variable to the (output_file) function to perform a new file creation of results
 
 #----------------------------------------------------------------------
 # The (process_csv) func takes in a csv file with param (csv) passed 
