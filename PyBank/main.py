@@ -82,11 +82,11 @@ def process_csv(csv):
     for i in range(len(profit)-1):
         profit_change.append(profit[i+1]-profit[i])
 
-    a = round(sum(profit_change)/len(profit_change),2)
+    a = round(sum(profit_change)/(x-1),2)
     inc = max(profit_change)
     dec = min(profit_change)
-    inc_date = profit_change.index(max(profit_change))+1 # Provides the corresponding index for the max change time period
-    dec_date = profit_change.index(min(profit_change))+1# Provides the corresponding index for the min change time period
+    inc_date = profit_change.index(inc)+1 # Provides the corresponding index for the max change time period
+    dec_date = profit_change.index(dec)+1# Provides the corresponding index for the min change time period
     inc_date = rdr.loc[rdr["Profit/Losses"] == val[inc_date], "Date"].values[0]# Uses val index to match column "Date" based upon the profit change for the value of greatest increase 
     dec_date = rdr.loc[rdr["Profit/Losses"] == val[dec_date], "Date"].values[0]# Uses val index to match column "Date" based upon the profit change for the value of greatest decrease  
     show_results(x, t, a, inc_date, inc, dec_date, dec)
