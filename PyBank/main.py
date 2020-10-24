@@ -11,7 +11,6 @@ import sys
 import io
 
 # Create global list to hold our change information later while iterating through the Prpfit/Losses column
-orignal_pf = []
 profit = []
 profit_change = []
 
@@ -75,11 +74,10 @@ def process_csv(csv):
 
     #----------------------------------------------------------------------------------
     # Iterate through our val object containing the values listed in our [Profit/Losses] 
-    # column and add orig values to our (original_pf) list and (profit) list. We will use
-    # the (profit) list to make our changes for calculations
+    # column add create (profit) list. We will use the (profit) list to make our changes
+    # for calculations of our current month P/F with the month ahead
     #----------------------------------------------------------------------------------
     for row in val:
-        orignal_pf.append(row)
         profit.append(int(row))
     for i in range(len(profit)-1):
         profit_change.append(profit[i+1]-profit[i])
@@ -89,8 +87,8 @@ def process_csv(csv):
     dec = min(profit_change)
     inc_date = profit_change.index(max(profit_change))+1 # Provides the corresponding index for the max change time period
     dec_date = profit_change.index(min(profit_change))+1# Provides the corresponding index for the min change time period
-    inc_date = rdr.loc[rdr["Profit/Losses"] == orignal_pf[inc_date], "Date"].values[0]# Uses the (orignal_pf) indexed list to match column "Date" based upon the profit change for the value of greatest increase 
-    dec_date = rdr.loc[rdr["Profit/Losses"] == orignal_pf[dec_date], "Date"].values[0]# Uses the (orignal_pf) indexed list to match column "Date" based upon the profit change for the value of greatest decrease  
+    inc_date = rdr.loc[rdr["Profit/Losses"] == val[inc_date], "Date"].values[0]# Uses val index to match column "Date" based upon the profit change for the value of greatest increase 
+    dec_date = rdr.loc[rdr["Profit/Losses"] == val[dec_date], "Date"].values[0]# Uses val index to match column "Date" based upon the profit change for the value of greatest decrease  
     show_results(x, t, a, inc_date, inc, dec_date, dec)
 
 
